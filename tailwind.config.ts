@@ -76,14 +76,14 @@ export default {
 					accent: '#6366f1',
 					border: '#3f3f46'
 				},
-				// Cores para o tema romântico
+				// Cores românticas mais quentes e suaves
 				romantic: {
-					bg: '#fef7ed',
+					bg: '#fdf8f3',
 					card: '#ffffff',
-					text: '#78716c',
-					accent: '#f97316',
-					pink: '#fdf2f8',
-					gold: '#fbbf24'
+					text: '#8b5a3c',
+					accent: '#e67e22',
+					pink: '#fef7f0',
+					gold: '#f39c12'
 				}
 			},
 			borderRadius: {

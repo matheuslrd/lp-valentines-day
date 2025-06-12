@@ -14,7 +14,6 @@ const Quiz = () => {
     age: '',
     dogName: '',
     favoriteGame: '',
-    currentGirlfriend: '',
     startDate: ''
   });
   const [showFeedback, setShowFeedback] = useState(false);
@@ -46,7 +45,7 @@ const Quiz = () => {
       case 4:
         return answer.toLowerCase().includes('witcher') || answer.toLowerCase().includes('the witcher 3');
       case 5:
-        return answer === 'sim'; // Sempre prossegue
+        return true; // Sempre prossegue na pergunta da data
       default:
         return false;
     }
@@ -56,11 +55,11 @@ const Quiz = () => {
     switch(step) {
       case 1:
         return isCorrect 
-          ? "Ótimo... mas ainda não confio totalmente em você! 😏"
-          : "É mesmo? Estou com sérias desconfianças... 😂";
+          ? "Ótimo... mas ainda não confio totalmente em você!"
+          : "É mesmo? Estou com sérias desconfianças...";
       case 2:
         return isCorrect
-          ? "Uau, você realmente presta atenção no Matheus! 👍"
+          ? "Uau, você realmente presta atenção no Matheus!"
           : "Ops... acho que você não anda prestando atenção, hein?";
       case 3:
         return isCorrect
@@ -68,12 +67,10 @@ const Quiz = () => {
           : "Hmm... será que você confundiu com outro cachorro?";
       case 4:
         return isCorrect
-          ? "Perfeito! Geralt agradece pela menção. 🗡️"
+          ? "Perfeito! Geralt agradece pela menção."
           : "Esse não... achei que você fosse fã de verdade!";
       case 5:
-        return answers.currentGirlfriend === 'sim'
-          ? "Ótimo... mas algo ainda não bate..."
-          : "Ha! Me engana que eu gosto...";
+        return "Mentirosa! Você sabe muito bem que isso não é verdade.";
       default:
         return "";
     }
@@ -92,29 +89,16 @@ const Quiz = () => {
       if (step === 3) {
         setShowInterrogation(true);
       }
-      return; // Não avança se incorreto (exceto última pergunta)
+      return;
     }
 
     // Se chegou na última pergunta
     if (step === 5) {
-      // Iniciar countdown
-      setCountdown(3);
-      const countdownInterval = setInterval(() => {
-        setCountdown(prev => {
-          if (prev <= 1) {
-            clearInterval(countdownInterval);
-            // Mostrar mensagem final após countdown
-            setTimeout(() => {
-              setFeedbackMessage("Acho que não heinnn! O Matheus terminou com a última namorada no ano passado.");
-              setTimeout(() => {
-                navigate('/romantic');
-              }, 3000);
-            }, 1000);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+      // Mostrar feedback imediatamente sem countdown
+      setTimeout(() => {
+        setShowFeedback(false);
+        setStep(step + 1); // Vai para step 6 que mostra o botão continuar
+      }, 2500);
       return;
     }
 
@@ -125,14 +109,17 @@ const Quiz = () => {
     }, 2000);
   };
 
+  const handleContinueToRomantic = () => {
+    navigate('/romantic');
+  };
+
   const getCurrentAnswer = () => {
     switch(step) {
       case 1: return answers.isGirlfriend;
       case 2: return answers.age;
       case 3: return answers.dogName;
       case 4: return answers.favoriteGame;
-      case 5: return answers.currentGirlfriend;
-      case 6: return answers.startDate;
+      case 5: return answers.startDate;
       default: return '';
     }
   };
@@ -142,7 +129,7 @@ const Quiz = () => {
       case 1:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
               Oi, olá… Antes de mais nada: você é mesmo a namorada oficial do Matheus ou caiu aqui por acaso tentando hackear o site?
             </h2>
             <div className="space-y-3">
@@ -154,7 +141,7 @@ const Quiz = () => {
                 <button
                   key={option.value}
                   onClick={() => handleInputChange('isGirlfriend', option.value)}
-                  className={`w-full p-4 text-left rounded-lg border transition-all duration-200 font-roboto-mono ${
+                  className={`w-full p-3 md:p-4 text-left rounded-lg border transition-all duration-200 font-roboto-mono text-sm md:text-base ${
                     answers.isGirlfriend === option.value
                       ? 'bg-quiz-accent border-quiz-accent text-white'
                       : 'bg-quiz-card border-quiz-border text-quiz-text hover:border-quiz-accent'
@@ -170,7 +157,7 @@ const Quiz = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
               Quantos anos o Matheus tem?
             </h2>
             <div className="relative">
@@ -179,7 +166,7 @@ const Quiz = () => {
                 value={answers.age}
                 onChange={(e) => handleInputChange('age', e.target.value)}
                 placeholder="Digite a idade..."
-                className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono ${
+                className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono text-sm md:text-base ${
                   shakeInput ? 'animate-shake' : ''
                 }`}
               />
@@ -190,7 +177,7 @@ const Quiz = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
               Como se chama o cachorro do Matheus?
             </h2>
             <div className="relative">
@@ -198,7 +185,7 @@ const Quiz = () => {
                 value={answers.dogName}
                 onChange={(e) => handleInputChange('dogName', e.target.value)}
                 placeholder="Digite o nome do cachorro..."
-                className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono ${
+                className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono text-sm md:text-base ${
                   shakeInput ? 'animate-shake' : ''
                 }`}
               />
@@ -212,14 +199,14 @@ const Quiz = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
               Qual é o jogo de videogame favorito do Matheus?
             </h2>
             <Input
               value={answers.favoriteGame}
               onChange={(e) => handleInputChange('favoriteGame', e.target.value)}
               placeholder="Digite o nome do jogo..."
-              className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono ${
+              className={`bg-quiz-card border-quiz-border text-quiz-text placeholder:text-gray-500 font-roboto-mono text-sm md:text-base ${
                 shakeInput ? 'animate-shake' : ''
               }`}
             />
@@ -229,32 +216,33 @@ const Quiz = () => {
       case 5:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
-              Você é a namorada atual do Matheus?
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text text-center animate-fade-in">
+              Quando vocês começaram a namorar?
             </h2>
-            <div className="flex gap-4">
-              {['sim', 'não'].map((option) => (
-                <button
-                  key={option}
-                  onClick={() => handleInputChange('currentGirlfriend', option)}
-                  className={`flex-1 p-4 rounded-lg border transition-all duration-200 font-roboto-mono capitalize ${
-                    answers.currentGirlfriend === option
-                      ? 'bg-quiz-accent border-quiz-accent text-white'
-                      : 'bg-quiz-card border-quiz-border text-quiz-text hover:border-quiz-accent'
-                  }`}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            {countdown > 0 && (
-              <div className="text-center">
-                <div className="text-4xl font-bold text-quiz-accent animate-pulse">
-                  {countdown}
-                </div>
-                <p className="text-quiz-text font-roboto-mono">Preparando revelação...</p>
-              </div>
-            )}
+            <Input
+              type="date"
+              value={answers.startDate}
+              onChange={(e) => handleInputChange('startDate', e.target.value)}
+              className="bg-quiz-card border-quiz-border text-quiz-text font-roboto-mono text-sm md:text-base"
+            />
+          </div>
+        );
+
+      case 6:
+        return (
+          <div className="text-center space-y-6">
+            <h2 className="text-lg md:text-2xl font-poppins font-medium text-quiz-text animate-fade-in">
+              Agora que terminamos essa pequena investigação...
+            </h2>
+            <p className="text-gray-400 font-roboto-mono text-sm md:text-base">
+              Está na hora de revelar a verdadeira surpresa!
+            </p>
+            <Button
+              onClick={handleContinueToRomantic}
+              className="w-full bg-quiz-accent hover:bg-indigo-600 text-white font-poppins"
+            >
+              Continuar para a surpresa
+            </Button>
           </div>
         );
       
@@ -266,35 +254,37 @@ const Quiz = () => {
   return (
     <div className="min-h-screen bg-quiz-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="bg-quiz-card border-quiz-border p-8 shadow-2xl">
-          <div className="space-y-8">
+        <Card className="bg-quiz-card border-quiz-border p-6 md:p-8 shadow-2xl">
+          <div className="space-y-6 md:space-y-8">
             {/* Header com progresso */}
             <div className="text-center space-y-4">
-              <h1 className="text-3xl font-bold text-quiz-text font-poppins mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-quiz-text font-poppins mb-2">
                 Verificação 🔍
               </h1>
-              <div className="space-y-2">
-                <p className="text-gray-400 font-roboto-mono text-sm">
-                  Etapa {step} de {totalSteps}
-                </p>
-                <Progress 
-                  value={progress} 
-                  className="w-full h-2 bg-gray-700"
-                />
-              </div>
+              {step <= 5 && (
+                <div className="space-y-2">
+                  <p className="text-gray-400 font-roboto-mono text-sm">
+                    Etapa {step} de {totalSteps}
+                  </p>
+                  <Progress 
+                    value={progress} 
+                    className="w-full h-2 bg-gray-700"
+                  />
+                </div>
+              )}
             </div>
             
             {renderStep()}
             
             {showFeedback && (
-              <div className={`text-center animate-fade-in font-roboto-mono ${
+              <div className={`text-center animate-fade-in font-roboto-mono text-sm md:text-base ${
                 feedbackType === 'correct' ? 'text-green-400' : 'text-red-400'
               }`}>
                 {feedbackMessage}
               </div>
             )}
             
-            {!showFeedback && countdown === 0 && (
+            {!showFeedback && step <= 5 && (
               <Button
                 onClick={handleNext}
                 disabled={!getCurrentAnswer()}
