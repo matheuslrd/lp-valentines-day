@@ -29,7 +29,6 @@ const TimeCounter: React.FC<TimeCounterProps> = ({ startDate }) => {
       const start = new Date(startDate);
       const now = new Date();
       
-      // Calcular a diferença
       let years = now.getFullYear() - start.getFullYear();
       let months = now.getMonth() - start.getMonth();
       let days = now.getDate() - start.getDate();
@@ -37,7 +36,6 @@ const TimeCounter: React.FC<TimeCounterProps> = ({ startDate }) => {
       let minutes = now.getMinutes() - start.getMinutes();
       let seconds = now.getSeconds() - start.getSeconds();
 
-      // Ajustar valores negativos
       if (seconds < 0) {
         seconds += 60;
         minutes--;

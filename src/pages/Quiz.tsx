@@ -37,7 +37,7 @@ const Quiz = () => {
   const validateAnswer = (step: number, answer: string) => {
     switch(step) {
       case 1:
-        return answer === 'option1'; // "Claro que sou a namorada número 1!"
+        return answer === 'option1';
       case 2:
         return answer === '24';
       case 3:
@@ -45,7 +45,7 @@ const Quiz = () => {
       case 4:
         return answer.toLowerCase().includes('witcher') || answer.toLowerCase().includes('the witcher 3');
       case 5:
-        return true; // Sempre prossegue na pergunta da data
+        return true;
       default:
         return false;
     }
@@ -70,7 +70,7 @@ const Quiz = () => {
           ? "Perfeito! Geralt agradece pela menção."
           : "Esse não... achei que você fosse fã de verdade!";
       case 5:
-        return "Mentirosa! Você sabe muito bem que isso não é verdade.";
+        return "HAHAHA Mentira! O Matheus terminou com a ultima namorada ano passado.";
       default:
         return "";
     }
@@ -92,17 +92,14 @@ const Quiz = () => {
       return;
     }
 
-    // Se chegou na última pergunta
     if (step === 5) {
-      // Mostrar feedback imediatamente sem countdown
       setTimeout(() => {
         setShowFeedback(false);
-        setStep(step + 1); // Vai para step 6 que mostra o botão continuar
+        setStep(step + 1);
       }, 2500);
       return;
     }
 
-    // Avançar para próxima pergunta após delay
     setTimeout(() => {
       setShowFeedback(false);
       setStep(step + 1);
@@ -235,13 +232,13 @@ const Quiz = () => {
               Agora que terminamos essa pequena investigação...
             </h2>
             <p className="text-gray-400 font-roboto-mono text-sm md:text-base">
-              Está na hora de revelar a verdadeira surpresa!
+              Acho que ta na hora de tu continuar!
             </p>
             <Button
               onClick={handleContinueToRomantic}
               className="w-full bg-quiz-accent hover:bg-indigo-600 text-white font-poppins"
             >
-              Continuar para a surpresa
+              Continuar
             </Button>
           </div>
         );
@@ -256,7 +253,6 @@ const Quiz = () => {
       <div className="w-full max-w-md">
         <Card className="bg-quiz-card border-quiz-border p-6 md:p-8 shadow-2xl">
           <div className="space-y-6 md:space-y-8">
-            {/* Header com progresso */}
             <div className="text-center space-y-4">
               <h1 className="text-2xl md:text-3xl font-bold text-quiz-text font-poppins mb-2">
                 Verificação 🔍
@@ -297,7 +293,6 @@ const Quiz = () => {
         </Card>
       </div>
       
-      {/* Efeito de partículas sutis */}
       <div className="fixed inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div

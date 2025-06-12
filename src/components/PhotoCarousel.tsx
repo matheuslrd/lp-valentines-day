@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 const PhotoCarousel = () => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
   
-  // Fotos de placeholder - você pode substituir por fotos reais
   const photos = [
     {
       url: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=600&h=400&fit=crop",
@@ -50,7 +49,6 @@ const PhotoCarousel = () => {
           </div>
         </div>
         
-        {/* Indicadores */}
         <div className="flex justify-center space-x-2 py-4 bg-romantic-card">
           {photos.map((_, index) => (
             <button

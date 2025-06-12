@@ -16,7 +16,6 @@ const Confetti = () => {
     
     setPieces(newPieces);
 
-    // Limpar confetti após animação
     setTimeout(() => {
       setPieces([]);
     }, 4000);

@@ -6,7 +6,6 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redireciona automaticamente para o quiz
     navigate('/');
   }, [navigate]);
 

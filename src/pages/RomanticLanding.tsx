@@ -1,17 +1,15 @@
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TimeCounter from '../components/TimeCounter';
-import Confetti from '../components/Confetti';
-import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Confetti from '../components/Confetti';
+import TimeCounter from '../components/TimeCounter';
 
 const RomanticLanding = () => {
   const [showConfetti, setShowConfetti] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Esconder confetti após alguns segundos
     const timer = setTimeout(() => {
       setShowConfetti(false);
     }, 4000);
@@ -60,7 +58,6 @@ const RomanticLanding = () => {
     <div className="min-h-screen bg-gradient-to-br from-romantic-bg via-pink-50 to-orange-50 relative overflow-hidden">
       {showConfetti && <Confetti />}
       
-      {/* Fundo com corações flutuantes */}
       <div className="fixed inset-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <div
@@ -80,7 +77,6 @@ const RomanticLanding = () => {
 
       <div className="relative z-10 container mx-auto px-4 py-12 md:py-16">
         <div className="max-w-6xl mx-auto space-y-12 md:space-y-16">
-          {/* Header romântico com margem maior */}
           <div className="text-center space-y-4 md:space-y-6 animate-fade-in pt-8 md:pt-12">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-great-vibes text-romantic-accent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
               Luana, meu amor!
@@ -90,12 +86,10 @@ const RomanticLanding = () => {
             </p>
           </div>
 
-          {/* Contador de tempo */}
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <TimeCounter startDate="2021-05-15" />
           </div>
 
-          {/* Timeline - Nossa Jornada */}
           <div className="animate-fade-in space-y-8" style={{ animationDelay: '0.6s' }}>
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-great-vibes text-romantic-accent bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-4">
@@ -106,15 +100,11 @@ const RomanticLanding = () => {
               </p>
             </div>
 
-            {/* Timeline Vertical */}
             <div className="relative max-w-4xl mx-auto">
-              {/* Linha conectora vertical central */}
               <div className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-pink-300 via-orange-300 to-pink-300 rounded-full transform -translate-x-1/2 hidden md:block"></div>
               
-              {/* Linha conectora para mobile */}
               <div className="absolute left-8 top-0 w-0.5 h-full bg-gradient-to-b from-pink-300 via-orange-300 to-pink-300 rounded-full md:hidden"></div>
 
-              {/* Timeline Items */}
               <div className="space-y-12 md:space-y-16">
                 {timelineData.map((item, index) => (
                   <div 
@@ -127,20 +117,16 @@ const RomanticLanding = () => {
                       animationFillMode: 'forwards'
                     }}
                   >
-                    {/* Círculo do ano - desktop */}
                     <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full items-center justify-center text-white font-bold text-xl shadow-xl z-10 transition-all duration-300 group-hover:scale-110">
                       {item.year}
                     </div>
 
-                    {/* Círculo do ano - mobile */}
                     <div className="md:hidden absolute left-8 top-6 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10">
                       {item.year.slice(-2)}
                     </div>
 
-                    {/* Conteúdo - esquerda/direita para desktop */}
                     <div className={`md:w-5/12 w-full ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'} ml-16 md:ml-0`}>
                       <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-romantic-gold/30 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-                        {/* Foto */}
                         <div className="relative mb-4 overflow-hidden rounded-xl group-hover:scale-105 transition-transform duration-500">
                           <img 
                             src={item.image} 
@@ -149,23 +135,19 @@ const RomanticLanding = () => {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           
-                          {/* Coração flutuante no hover */}
                           <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
                             <span className="text-white text-2xl animate-pulse">💖</span>
                           </div>
                         </div>
                         
-                        {/* Título */}
                         <h3 className="font-dancing text-xl md:text-2xl text-romantic-text mb-3 leading-relaxed">
                           {item.title}
                         </h3>
                         
-                        {/* Descrição */}
                         <p className="text-romantic-text/80 font-poppins text-sm md:text-base leading-relaxed">
                           {item.description}
                         </p>
 
-                        {/* Elementos decorativos */}
                         <div className="flex justify-center mt-4 space-x-2">
                           {['✨', '💕', '🌟'].map((emoji, i) => (
                             <span 
@@ -180,14 +162,12 @@ const RomanticLanding = () => {
                       </div>
                     </div>
 
-                    {/* Espaço vazio para o outro lado - desktop */}
                     <div className="hidden md:block md:w-5/12"></div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Encerramento inspirador */}
             <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '2.5s' }}>
               <p className="text-2xl md:text-3xl font-great-vibes text-romantic-accent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
                 E o melhor capítulo ainda está por vir...
@@ -195,7 +175,6 @@ const RomanticLanding = () => {
             </div>
           </div>
 
-          {/* Mensagem final */}
           <div className="text-center space-y-4 md:space-y-6 animate-fade-in" style={{ animationDelay: '0.9s' }}>
             <div className="bg-gradient-to-br from-white via-pink-50 to-orange-50 p-6 md:p-8 rounded-2xl shadow-xl border border-romantic-gold/30 backdrop-blur-sm">
               <h2 className="text-2xl md:text-3xl font-dancing text-romantic-accent mb-4 bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
@@ -219,7 +198,6 @@ const RomanticLanding = () => {
             </div>
           </div>
 
-          {/* Assinatura */}
           <div className="text-center animate-fade-in" style={{ animationDelay: '1.2s' }}>
             <p className="text-xl md:text-2xl font-great-vibes text-romantic-accent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
               Com amor, Matheus 💝
@@ -228,7 +206,6 @@ const RomanticLanding = () => {
         </div>
       </div>
 
-      {/* Botão de voltar ao quiz - canto inferior direito - CORRIGIDO */}
       <button
         onClick={handleBackToQuiz}
         className="fixed bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 hover:bg-white border-2 border-romantic-accent text-romantic-accent backdrop-blur-sm shadow-lg transition-all duration-300 hover:scale-105 rounded-full p-3 md:px-4 md:py-2 md:rounded-lg flex items-center gap-2 z-50"

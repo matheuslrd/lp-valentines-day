@@ -68,7 +68,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cores para o tema dark/quiz
 				quiz: {
 					bg: '#0f0f23',
 					card: '#1a1a2e',
@@ -76,7 +75,6 @@ export default {
 					accent: '#6366f1',
 					border: '#3f3f46'
 				},
-				// Cores românticas mais quentes e suaves
 				romantic: {
 					bg: '#fdf8f3',
 					card: '#ffffff',
