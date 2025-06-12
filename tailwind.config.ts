@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -143,6 +142,16 @@ export default {
 						transform: 'translateY(-10vh) translateX(-50%) scale(1)',
 						opacity: '0'
 					}
+				},
+				'confetti-fall': {
+					'0%': { 
+						transform: 'translateY(-10px) translateX(0) rotate(0deg)',
+						opacity: '1'
+					},
+					'100%': { 
+						transform: 'translateY(100vh) translateX(var(--random-x, 0px)) rotate(360deg)',
+						opacity: '0'
+					}
 				}
 			},
 			animation: {
@@ -151,7 +160,8 @@ export default {
 				'fade-in': 'fade-in 0.6s ease-out',
 				'shake': 'shake 0.5s ease-in-out',
 				'float': 'float 3s ease-in-out infinite',
-				'heart-float': 'heart-float 8s linear infinite'
+				'heart-float': 'heart-float 8s linear infinite',
+				'confetti-fall': 'confetti-fall 3s ease-out forwards'
 			}
 		}
 	},

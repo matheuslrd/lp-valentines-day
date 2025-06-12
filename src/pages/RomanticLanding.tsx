@@ -1,31 +1,34 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
-import { Heart } from 'lucide-react';
-import PhotoCarousel from '@/components/PhotoCarousel';
-import TimeCounter from '@/components/TimeCounter';
+import PhotoCarousel from '../components/PhotoCarousel';
+import TimeCounter from '../components/TimeCounter';
+import Confetti from '../components/Confetti';
 
 const RomanticLanding = () => {
-  const [showContent, setShowContent] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
+    // Esconder confetti após alguns segundos
     const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 500);
+      setShowConfetti(false);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-romantic-bg via-romantic-pink to-orange-50">
-      {/* Corações flutuantes */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+    <div className="min-h-screen bg-romantic-bg relative overflow-hidden">
+      {showConfetti && <Confetti />}
+      
+      {/* Fundo com corações flutuantes */}
+      <div className="fixed inset-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute text-pink-400 text-xl animate-heart-float"
+            className="absolute text-romantic-accent opacity-20 animate-heart-float"
             style={{
               left: `${Math.random() * 100}%`,
+              fontSize: `${20 + Math.random() * 20}px`,
               animationDelay: `${Math.random() * 8}s`,
               animationDuration: `${8 + Math.random() * 4}s`
             }}
@@ -35,56 +38,58 @@ const RomanticLanding = () => {
         ))}
       </div>
 
-      <div className={`container mx-auto px-4 py-8 transition-all duration-1000 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-7xl font-great-vibes text-romantic-accent mb-4 animate-fade-in">
-            Nossa História de Amor
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-romantic-text">
-            <Heart className="text-pink-500 animate-float" size={24} />
-            <p className="font-dancing text-xl">Uma surpresa especial para você</p>
-            <Heart className="text-pink-500 animate-float" size={24} />
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto space-y-12">
+          {/* Header romântico */}
+          <div className="text-center space-y-6 animate-fade-in">
+            <h1 className="text-5xl md:text-7xl font-great-vibes text-romantic-text">
+              Meu Amor
+            </h1>
+            <p className="text-xl md:text-2xl font-dancing text-romantic-accent">
+              Uma surpresa especial para você ✨
+            </p>
           </div>
-        </div>
 
-        {/* Carrossel de Fotos */}
-        <div className="mb-12">
-          <PhotoCarousel />
-        </div>
+          {/* Contador de tempo */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <TimeCounter />
+          </div>
 
-        {/* Contador de Tempo */}
-        <Card className="bg-romantic-card/80 backdrop-blur-sm border-none shadow-lg p-8 mb-8 max-w-2xl mx-auto">
-          <TimeCounter startDate="2021-05-15" />
-        </Card>
+          {/* Carrossel de fotos */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <PhotoCarousel />
+          </div>
 
-        {/* Mensagem Romântica */}
-        <Card className="bg-romantic-card/80 backdrop-blur-sm border-none shadow-lg p-8 max-w-3xl mx-auto">
-          <div className="text-center space-y-6">
-            <h2 className="text-3xl font-dancing text-romantic-accent mb-4">
-              Para Minha Pessoa Especial
-            </h2>
-            <p className="text-lg font-poppins text-romantic-text leading-relaxed">
-              Depois dessa brincadeira toda, queria te dizer o quanto você é importante na minha vida. 
-              Cada dia ao seu lado é uma nova aventura, repleta de amor, risos e momentos únicos.
-            </p>
-            <p className="text-lg font-poppins text-romantic-text leading-relaxed">
-              Você transforma os dias comuns em extraordinários, e mesmo nas pegadinhas mais bobas, 
-              seu sorriso faz tudo valer a pena. ❤️
-            </p>
-            <div className="pt-4">
-              <p className="text-2xl font-dancing text-romantic-accent">
-                Te amo infinitamente! 💕
+          {/* Mensagem final */}
+          <div className="text-center space-y-6 animate-fade-in" style={{ animationDelay: '0.9s' }}>
+            <div className="bg-romantic-card p-8 rounded-2xl shadow-lg border border-romantic-gold/20">
+              <h2 className="text-3xl font-dancing text-romantic-accent mb-4">
+                Para você, com todo meu amor
+              </h2>
+              <p className="text-lg font-poppins text-romantic-text leading-relaxed">
+                Cada momento ao seu lado é um presente. Obrigado por fazer minha vida mais colorida,
+                mais feliz e mais completa. Você é minha inspiração diária e meu amor eterno.
               </p>
+              <div className="mt-6 flex justify-center space-x-2">
+                {['💕', '🌹', '✨', '💖', '🌟'].map((emoji, i) => (
+                  <span 
+                    key={i} 
+                    className="text-2xl animate-float"
+                    style={{ animationDelay: `${i * 0.2}s` }}
+                  >
+                    {emoji}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </Card>
 
-        {/* Footer romântico */}
-        <div className="text-center mt-12 pb-8">
-          <p className="font-dancing text-xl text-romantic-text opacity-70">
-            Feito com muito amor por Matheus 💝
-          </p>
+          {/* Assinatura */}
+          <div className="text-center animate-fade-in" style={{ animationDelay: '1.2s' }}>
+            <p className="text-2xl font-great-vibes text-romantic-accent">
+              Com amor, Matheus 💝
+            </p>
+          </div>
         </div>
       </div>
     </div>
