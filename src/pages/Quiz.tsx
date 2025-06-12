@@ -71,7 +71,7 @@ const Quiz = () => {
           ? "Perfeito! Geralt agradece pela menção. 🗡️"
           : "Esse não... achei que você fosse fã de verdade!";
       case 5:
-        return answer === 'sim'
+        return answers.currentGirlfriend === 'sim'
           ? "Ótimo... mas algo ainda não bate..."
           : "Ha! Me engana que eu gosto...";
       default:

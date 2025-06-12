@@ -52,7 +52,7 @@ const RomanticLanding = () => {
 
           {/* Contador de tempo */}
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <TimeCounter />
+            <TimeCounter startDate="2021-05-15" />
           </div>
 
           {/* Carrossel de fotos */}
