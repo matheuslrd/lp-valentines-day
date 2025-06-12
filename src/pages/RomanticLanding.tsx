@@ -106,82 +106,89 @@ const RomanticLanding = () => {
               </p>
             </div>
 
-            {/* Timeline Desktop */}
-            <div className="hidden lg:block">
-              <div className="relative">
-                {/* Linha conectora */}
-                <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-pink-300 via-orange-300 to-pink-300 rounded-full transform -translate-y-1/2"></div>
-                
-                {/* Anos */}
-                <div className="flex justify-between items-center relative z-10">
-                  {timelineData.map((item, index) => (
-                    <div key={item.year} className="text-center group">
-                      {/* Círculo do ano */}
-                      <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg mb-6 mx-auto shadow-lg transform transition-all duration-300 group-hover:scale-110">
-                        {item.year.slice(-2)}
-                      </div>
-                      
-                      {/* Foto */}
-                      <div className="relative mb-4 transform transition-all duration-300 group-hover:scale-105">
-                        <img 
-                          src={item.image} 
-                          alt={item.title}
-                          className="w-48 h-32 object-cover rounded-xl shadow-xl border-4 border-white"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+            {/* Timeline Vertical */}
+            <div className="relative max-w-4xl mx-auto">
+              {/* Linha conectora vertical central */}
+              <div className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-pink-300 via-orange-300 to-pink-300 rounded-full transform -translate-x-1/2 hidden md:block"></div>
+              
+              {/* Linha conectora para mobile */}
+              <div className="absolute left-8 top-0 w-0.5 h-full bg-gradient-to-b from-pink-300 via-orange-300 to-pink-300 rounded-full md:hidden"></div>
+
+              {/* Timeline Items */}
+              <div className="space-y-12 md:space-y-16">
+                {timelineData.map((item, index) => (
+                  <div 
+                    key={item.year} 
+                    className={`relative animate-fade-in opacity-0 transform translate-y-8 transition-all duration-1000 ease-out ${
+                      index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    } flex flex-col md:flex items-center group`}
+                    style={{ 
+                      animationDelay: `${0.8 + index * 0.3}s`,
+                      animationFillMode: 'forwards'
+                    }}
+                  >
+                    {/* Círculo do ano - desktop */}
+                    <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full items-center justify-center text-white font-bold text-xl shadow-xl z-10 transition-all duration-300 group-hover:scale-110">
+                      {item.year}
+                    </div>
+
+                    {/* Círculo do ano - mobile */}
+                    <div className="md:hidden absolute left-8 top-6 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10">
+                      {item.year.slice(-2)}
+                    </div>
+
+                    {/* Conteúdo - esquerda/direita para desktop */}
+                    <div className={`md:w-5/12 w-full ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'} ml-16 md:ml-0`}>
+                      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-romantic-gold/30 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+                        {/* Foto */}
+                        <div className="relative mb-4 overflow-hidden rounded-xl group-hover:scale-105 transition-transform duration-500">
+                          <img 
+                            src={item.image} 
+                            alt={item.title}
+                            className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          
+                          {/* Coração flutuante no hover */}
+                          <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+                            <span className="text-white text-2xl animate-pulse">💖</span>
+                          </div>
+                        </div>
                         
-                        {/* Coração flutuante no hover */}
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="text-white text-xl animate-float">💖</span>
+                        {/* Título */}
+                        <h3 className="font-dancing text-xl md:text-2xl text-romantic-text mb-3 leading-relaxed">
+                          {item.title}
+                        </h3>
+                        
+                        {/* Descrição */}
+                        <p className="text-romantic-text/80 font-poppins text-sm md:text-base leading-relaxed">
+                          {item.description}
+                        </p>
+
+                        {/* Elementos decorativos */}
+                        <div className="flex justify-center mt-4 space-x-2">
+                          {['✨', '💕', '🌟'].map((emoji, i) => (
+                            <span 
+                              key={i}
+                              className="text-lg opacity-60 animate-float"
+                              style={{ animationDelay: `${i * 0.2}s` }}
+                            >
+                              {emoji}
+                            </span>
+                          ))}
                         </div>
                       </div>
-                      
-                      {/* Título */}
-                      <h3 className="font-dancing text-lg text-romantic-text mb-2 max-w-48">
-                        {item.title}
-                      </h3>
-                      
-                      {/* Descrição no hover */}
-                      <p className="text-sm text-romantic-text/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        {item.description}
-                      </p>
                     </div>
-                  ))}
-                </div>
+
+                    {/* Espaço vazio para o outro lado - desktop */}
+                    <div className="hidden md:block md:w-5/12"></div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Timeline Mobile */}
-            <div className="lg:hidden space-y-8">
-              {timelineData.map((item, index) => (
-                <div key={item.year} className="flex items-center space-x-4 group">
-                  {/* Círculo do ano */}
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg">
-                    {item.year.slice(-2)}
-                  </div>
-                  
-                  {/* Conteúdo */}
-                  <div className="flex-1">
-                    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-romantic-gold/20">
-                      <img 
-                        src={item.image} 
-                        alt={item.title}
-                        className="w-full h-40 object-cover rounded-lg mb-3"
-                      />
-                      <h3 className="font-dancing text-lg text-romantic-text mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-romantic-text/70">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
             {/* Encerramento inspirador */}
-            <div className="text-center mt-12">
+            <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '2.5s' }}>
               <p className="text-2xl md:text-3xl font-great-vibes text-romantic-accent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
                 E o melhor capítulo ainda está por vir...
               </p>
