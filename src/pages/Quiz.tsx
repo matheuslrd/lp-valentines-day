@@ -96,7 +96,7 @@ const Quiz = () => {
       setTimeout(() => {
         setShowFeedback(false);
         setStep(step + 1);
-      }, 2500);
+      }, 5500);
       return;
     }
 
